@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catálogo de Antojos: De lo Salado a lo Dulce</title>
+<!-- Tipografías: Playfair Display (rústico) y Fredoka (candy). Si no hay internet, se usan las de respaldo. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,800;1,500&family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ============ 1. VARIABLES Y BASE ============ */
+  :root{
+    --wood:#5C3A21; --parch:#D7C49E; --terra:#B5532F; --ink:#3a2312;
+    --pink:#FFC8DD; --sky:#BDE0FE; --lemon:#FFF3B0; --berry:#E0457B; --mint:#C7F0D8; --wine:#3B222B; --wine-d:#2C1A22; --cu:#C48B73; --cu-l:#D4A38A; --gold:#E3B08C;
+    --serif:'Playfair Display',Georgia,'Times New Roman',serif;
+    --round:'Fredoka','Trebuchet MS',Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+    background:radial-gradient(circle at 50% 35%,#4a3328,#150f0c 75%);
+    font-family:var(--round);overflow:hidden;
+  }
+  /* Contenedor del libro: StPageFlip lo ajusta con size:"stretch" */
+  #book{width:min(96vw,1000px);height:min(80vh,720px)}
+
+  /* ============ 2. ESTRUCTURA COMÚN DE PÁGINA ============ */
+  /* cqw = 1% del ancho de la página, así todo escala con el libro */
+  .page{container-type:inline-size;overflow:hidden;position:relative}
+  .pad{position:absolute;inset:0;padding:8cqw 8cqw 6cqw;display:flex;flex-direction:column;gap:3cqw}
+  .photo{display:grid;place-items:center;overflow:hidden;font-size:15cqw;line-height:1}
+  .photo{position:relative}
+  .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover} /* foto sobre el marcador */
+  .fn{font:600 5cqw var(--round);opacity:.5;pointer-events:none} /* nombre de archivo, centrado en el recuadro */
+  .photo.ok>:not(img){visibility:hidden}
+  .folio{text-align:center;font-size:3.2cqw;opacity:.7;margin-top:auto}
+
+  /* ============ 3. PORTADA Y CONTRAPORTADA (burdeos y cobre, Lilith's Food) ============ */
+  .cover{color:var(--cu-l);text-align:center}
+  /* Fondo burdeos texturizado (líneas finas + brillo suave) con corte diagonal cobrizo */
+  .cover.front{background:
+    repeating-linear-gradient(45deg,#ffffff07 0 .3cqw,#0000 .3cqw 1.5cqw),
+    radial-gradient(ellipse at 75% 85%,#6b3c4d88,transparent 60%),
+    linear-gradient(128deg,var(--wine-d) 0 49.4%,var(--cu) 49.4% 50.6%,var(--wine) 50.6%)}
+  .cover.back{background:
+    repeating-linear-gradient(45deg,#ffffff07 0 .3cqw,#0000 .3cqw 1.5cqw),
+    radial-gradient(ellipse at 75% 15%,#6b3c4d88,transparent 60%),
+    linear-gradient(52deg,var(--wine-d) 0 49.4%,var(--cu) 49.4% 50.6%,var(--wine) 50.6%)}
+  .cover::before{content:"";position:absolute;inset:4cqw;border:.4cqw solid #c48b73b3;border-radius:2cqw;pointer-events:none;z-index:2} /* marco cobre */
+  .cover .pad{justify-content:center;align-items:center;gap:6cqw;padding-top:19cqw} /* compensa el sello del logo que sobresale */
+  /* Cuadro central del título */
+  .badge{position:relative;width:78cqw;padding:15cqw 6cqw 8cqw;background:#241520;border-radius:2.5cqw;
+    box-shadow:inset 0 0 0 1.2cqw #241520,inset 0 0 0 1.7cqw var(--cu),0 3cqw 7cqw #0008}
+  .badge h1{font-family:var(--serif);font-size:11.5cqw;line-height:1;font-weight:800;letter-spacing:-.2cqw;color:var(--cu)}
+  .badge h1 span{display:block;font-family:var(--round);font-size:11cqw;font-weight:700;margin-top:1.5cqw;letter-spacing:0}
+  /* Títulos con efecto metálico cobrizo (solo si el navegador soporta background-clip:text) */
+  @supports ((-webkit-background-clip:text) or (background-clip:text)){
+    .badge h1{background:linear-gradient(135deg,#EBC3AD,#C48B73 40%,#9C6651 62%,#D4A38A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  }
+  .badge p{margin-top:5cqw;font-family:var(--serif);font-style:italic;font-size:4.6cqw;color:var(--cu-l)}
+  /* Contacto de la contraportada */
+  .contact{margin-top:6cqw;padding-top:4.5cqw;border-top:.4cqw solid #c48b73aa;display:flex;flex-direction:column;align-items:center;gap:1.2cqw}
+  .ct-label{display:flex;align-items:center;gap:1.6cqw;font-family:var(--round);font-weight:600;font-size:4cqw;color:var(--cu-l)}
+  .ct-label svg{width:4.6cqw;height:4.6cqw;stroke:var(--cu);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .ct-num{font-family:var(--serif);font-size:8cqw;font-weight:800;letter-spacing:.2cqw;color:var(--cu)}
+  @supports ((-webkit-background-clip:text) or (background-clip:text)){
+    .ct-num{background:linear-gradient(135deg,#EBC3AD,#C48B73 40%,#9C6651 62%,#D4A38A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  }
+  .cover.back .pad{gap:5cqw}
+  .tag{background:linear-gradient(135deg,#E3B49D,#C48B73 55%,#D4A38A);color:var(--wine-d);padding:2.4cqw 7cqw;border-radius:99px;font-weight:700;font-size:4.2cqw;box-shadow:0 1.2cqw 3cqw #0006}
+  /* Logo oficial (logo.png) como sello sobre el borde superior del cuadro */
+  .photo.logo{position:absolute;top:0;left:50%;transform:translate(-50%,-50%);width:22cqw;height:22cqw;border-radius:50%;
+    background:var(--wine-d);border:.9cqw solid var(--cu);box-shadow:0 0 0 1.2cqw #241520,0 2cqw 5cqw #0009}
+  .photo.logo img{inset:0;width:100%;height:100%;object-fit:cover}
+  /* Ornamentos clásicos de la portada: esquinas, viñetas y marco doble */
+  .co,.dv{fill:none;stroke:var(--gold);stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 .4cqw #e3b08c55);pointer-events:none}
+  .co{position:absolute;width:21cqw;height:21cqw;z-index:3}
+  .co.tl{top:4.5cqw;left:4.5cqw}
+  .co.tr{top:4.5cqw;right:4.5cqw;transform:scaleX(-1)}
+  .co.bl{bottom:4.5cqw;left:4.5cqw;transform:scaleY(-1)}
+  .co.br{bottom:4.5cqw;right:4.5cqw;transform:scale(-1)}
+  .dv.top,.dv.bot{position:absolute;left:50%;margin-left:-18cqw;width:36cqw;height:4.8cqw;z-index:3}
+  .dv.top{top:7.5cqw}.dv.bot{bottom:7.5cqw}
+  .badge .dv{display:block;width:46cqw;height:6cqw;margin:4cqw auto 0}
+  .cover.front .badge{padding-bottom:7cqw} /* equilibrio sin la frase secundaria */
+  .cover.front::before{border:.4cqw solid var(--gold);outline:.25cqw solid #e3b08c88;outline-offset:-1.6cqw} /* doble filete */
+  .cover.front .photo.logo{box-shadow:0 0 0 1.2cqw #241520,0 0 0 1.7cqw var(--gold),0 2cqw 5cqw #0009} /* anillo extra del sello */
+
+  /* Sello pequeño del logo en las páginas interiores (esquina superior exterior) */
+  .photo.mark{position:absolute;top:2.2cqw;width:10cqw;height:10cqw;border-radius:50%;background:var(--wine-d);
+    border:.5cqw solid var(--cu);box-shadow:0 .6cqw 1.8cqw #0006;z-index:3}
+  .photo.mark.l{left:2.2cqw}.photo.mark.r{right:2.2cqw}
+  .photo.mark img{inset:0;width:100%;height:100%;object-fit:cover}
+
+  /* ============ 4. MUNDO SALADO (rústico / mesón) ============ */
+  .salt{
+    color:var(--ink);font-family:var(--serif);
+    background:
+      radial-gradient(ellipse at 20% 15%,#f0e2bd88,transparent 55%),
+      radial-gradient(ellipse at 85% 90%,#8a5a2e55,transparent 55%),
+      repeating-linear-gradient(92deg,#0000 0 2.5cqw,#7a522a14 2.5cqw 2.8cqw),var(--parch);
+  }
+  /* Marco ornamental doble de madera */
+  .salt::before{content:"";position:absolute;inset:3cqw;border:1.3cqw double var(--wood);border-radius:1.5cqw;pointer-events:none}
+  .salt::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 9cqw #5c3a2155;pointer-events:none}
+  .kicker{font-style:italic;color:var(--terra);font-size:4cqw;text-align:center}
+  .salt h2{font-size:9.5cqw;font-weight:800;text-align:center;color:var(--wood);line-height:1}
+  .orn{text-align:center;color:var(--terra);letter-spacing:2cqw;font-size:4.5cqw}
+  .salt h3{font-size:5.6cqw;color:var(--terra);border-bottom:.5cqw solid var(--wood);padding-bottom:.8cqw;font-weight:600}
+  .dishes{flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:2cqw}
+  .dish{display:grid;grid-template-columns:34cqw 1fr;gap:4cqw;align-items:center}
+  .salt .photo{aspect-ratio:1;border:1cqw solid var(--wood);border-radius:2cqw;background:#e9dab5;
+    box-shadow:inset 0 0 4cqw #5c3a2144,1cqw 1cqw 0 #5c3a2133;outline:.5cqw dashed var(--terra);outline-offset:-2.2cqw}
+  .row{display:flex;align-items:baseline;gap:1.2cqw}
+  .row b{font-size:5cqw;color:var(--wood)}
+  .row i{flex:1;border-bottom:.6cqw dotted var(--wood);transform:translateY(-.8cqw)}
+  .row em{font-size:5cqw;font-weight:800;color:var(--terra);font-style:normal}
+  .dish p{font-size:3.5cqw;line-height:1.45;margin-top:1cqw}
+  .dish.sm{grid-template-columns:20cqw 1fr}
+  .dish.sm .row b,.dish.sm .row em{font-size:4.4cqw}
+
+  /* ============ 5. MUNDO DULCE (candy / colorido) ============ */
+  .sweet{
+    font-family:var(--round);color:#5a2a45;
+    background:
+      radial-gradient(circle,#fff9 .9cqw,transparent 1cqw) 0 0/7cqw 7cqw,
+      linear-gradient(160deg,var(--pink),var(--lemon) 55%,var(--sky));
+  }
+  .sweet::before{content:"";position:absolute;inset:3cqw;border:1cqw dashed #fff;border-radius:5cqw;pointer-events:none}
+  .sweet h2{font-size:10.5cqw;line-height:.95;text-align:center;color:var(--berry);font-weight:700;
+    text-shadow:.6cqw .6cqw 0 #fff,1.2cqw 1.2cqw 0 #ffb3d1;transform:rotate(-2deg)}
+  .sweet .sub{text-align:center;font-weight:600;font-size:4.4cqw;color:#7b4a8a}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5cqw;flex:1;min-height:0}
+  .card{background:var(--c,#fff);border-radius:5cqw;padding:3cqw;display:flex;flex-direction:column;align-items:center;
+    text-align:center;gap:1.2cqw;box-shadow:0 1.2cqw 0 #0002;border:.8cqw solid #fff;transition:transform .25s}
+  .card:nth-child(odd){transform:rotate(-1.6deg)}.card:nth-child(even){transform:rotate(1.6deg)}
+  .card:hover{transform:rotate(0) scale(1.04)}
+  .card .photo{width:100%;flex:1;min-height:0;border-radius:3.5cqw;background:#ffffffaa;border:.7cqw dashed #fff}
+  .card h4{font-size:5.2cqw;line-height:1.05;font-weight:700}
+  .card p{font-size:3.3cqw;line-height:1.25}
+  .price{background:var(--berry);color:#fff;font-weight:700;font-size:4cqw;padding:.8cqw 3.5cqw;border-radius:99px}
+  .wide{grid-column:1/-1;flex-direction:row;text-align:left;gap:4cqw}
+  .wide .photo{width:36cqw;flex:none;height:100%}
+  .wide .txt{display:flex;flex-direction:column;gap:1.5cqw;align-items:flex-start}
+  .sticker{align-self:center;background:#fff;color:var(--berry);font-weight:700;font-size:4.2cqw;padding:2cqw 5cqw;
+    border-radius:99px;box-shadow:0 1cqw 0 var(--berry);transform:rotate(-2deg)}
+
+  /* ============ 6. CONTROLES ============ */
+  .ctrl{display:flex;align-items:center;gap:14px;color:#f3e6d0;font-size:15px}
+  .ctrl button{font:600 15px var(--round);padding:9px 18px;border:0;border-radius:99px;cursor:pointer;
+    background:var(--parch);color:var(--ink);box-shadow:0 3px 0 var(--terra)}
+  .ctrl button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--terra)}
+  .ctrl button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
+  #err{color:#ffd5d5;text-align:center;padding:20px}
+  @media (prefers-reduced-motion:reduce){.card{transition:none}}
+</style>
+<script>
+  /* Si "nombre.png" no existe prueba "nombre.jpg"; si tampoco, quita la <img> y queda el marcador */
+  function imgFallback(i){
+    if(/\.png$/i.test(i.src) && !i.dataset.t){ i.dataset.t=1; i.src=i.src.replace(/\.png$/i,'.jpg'); }
+    else i.remove();
+  }
+</script>
+</head>
+<body>
+<!-- Ornamentos vectoriales (no necesitan archivos de imagen) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="corner" viewBox="0 0 64 64">
+      <path id="cp" d="M3 61V14Q3 3 14 3H61M9 55V18Q9 9 18 9H55M18 18C30 15 35 23 29 29C24 34 17 30 20 25C22 21.5 26 23 24.5 26.5M28 9Q34 15 41 9M9 28Q15 34 9 41"/>
+      <use href="#cp" style="stroke:#FBE3CC;stroke-width:.45"/>
+      <circle cx="3" cy="61" r="1.8" fill="#E3B08C" stroke="none"/><circle cx="61" cy="3" r="1.8" fill="#E3B08C" stroke="none"/>
+    </symbol>
+    <symbol id="divider" viewBox="0 0 120 16">
+      <path id="dp" d="M60 3L66 8 60 13 54 8Z M50 8H26Q18 8 14 4M70 8H94Q102 8 106 4"/>
+      <use href="#dp" style="stroke:#FBE3CC;stroke-width:.4"/>
+      <circle cx="12" cy="3" r="1.7" fill="#E3B08C" stroke="none"/><circle cx="108" cy="3" r="1.7" fill="#E3B08C" stroke="none"/>
+      <circle cx="60" cy="8" r="1" fill="#FBE3CC" stroke="none"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ================= LIBRO ================= -->
+<!-- Cada .page es una hoja. data-density="hard" = tapa dura (portada/contraportada). -->
+<!-- Fotos locales: guarda junto a este archivo logo.png y las imágenes numeradas 1.png a 20.png (una por plato, en el orden del catálogo). Acepta .png o .jpg. Sin archivo se ve el marcador. -->
+<div id="book">
+
+  <!-- PÁGINA 1: PORTADA -->
+  <section class="page cover front" data-density="hard"><div class="pad">
+    <!-- Ornamentos clásicos: 4 esquinas y viñetas superior e inferior -->
+    <svg class="co tl" aria-hidden="true"><use href="#corner"/></svg>
+    <svg class="co tr" aria-hidden="true"><use href="#corner"/></svg>
+    <svg class="co bl" aria-hidden="true"><use href="#corner"/></svg>
+    <svg class="co br" aria-hidden="true"><use href="#corner"/></svg>
+    <svg class="dv top" aria-hidden="true"><use href="#divider"/></svg>
+    <svg class="dv bot" aria-hidden="true"><use href="#divider"/></svg>
+    <div class="badge">
+      <!-- Logo oficial: logo.png (o logo.jpg) -->
+      <div class="photo logo"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+      <h1>Catálogo<span>de Antojos</span></h1>
+      <svg class="dv" aria-hidden="true"><use href="#divider"/></svg>
+    </div>
+    <div class="tag">¡Abre y elige tu antojo!</div>
+  </div></section>
+
+  <!-- PÁGINA 2: SAL -->
+  <section class="page salt"><div class="pad">
+    <div class="photo mark l"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+    <p class="kicker">Mesón &amp; Cocina de Leña</p>
+    <h2>Sabores de Sal</h2>
+    <div class="orn">❦ ✦ ❦</div>
+    <h3>Empanadas de horno</h3>
+    <div class="dishes">
+      <article class="dish">
+        <div class="photo"><span class="fn">1.png</span><img src="1.png" alt="Empanadas de carne" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div><div class="row"><b>Empanadas de carne</b><i></i><em>$2.75</em></div>
+          <p>Carne molida sazonada con comino, aceitunas y huevo cocido.</p></div>
+      </article>
+      <article class="dish">
+        <div class="photo"><span class="fn">2.png</span><img src="2.png" alt="Empanadas de pollo" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div><div class="row"><b>Empanadas de pollo</b><i></i><em>$2.50</em></div>
+          <p>Pollo desmechado con refrito de cebolla y pimiento, masa dorada.</p></div>
+      </article>
+    </div>
+    <div class="folio">❦ 2 ❦</div>
+  </div></section>
+
+  <!-- PÁGINA 3: SAL -->
+  <section class="page salt"><div class="pad">
+    <div class="photo mark r"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+    <p class="kicker">Recetas de la casa</p>
+    <h3>Empanadas y rollitos</h3>
+    <div class="dishes">
+      <article class="dish">
+        <div class="photo"><span class="fn">3.png</span><img src="3.png" alt="Empanadas de queso con jamón" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div><div class="row"><b>Empanadas de queso con jamón</b><i></i><em>$2.50</em></div>
+          <p>Queso fundido y jamón en una masa crocante recién horneada.</p></div>
+      </article>
+      <article class="dish">
+        <div class="photo"><span class="fn">4.png</span><img src="4.png" alt="Rollitos de salchicha" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div><div class="row"><b>Rollitos de salchicha</b><i></i><em>$1.80</em></div>
+          <p>Salchicha jugosa envuelta en masa hojaldrada y dorada.</p></div>
+      </article>
+    </div>
+    <div class="folio">❦ 3 ❦</div>
+  </div></section>
+
+  <!-- PÁGINA 4: SAL -->
+  <section class="page salt"><div class="pad">
+    <div class="photo mark l"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+    <p class="kicker">Del fogón a tu mesa</p>
+    <h3>Hamburguesa y sánduche</h3>
+    <div class="dishes">
+      <article class="dish">
+        <div class="photo"><span class="fn">5.png</span><img src="5.png" alt="Hamburguesa" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div><div class="row"><b>Mini Hamburguesa</b><i></i><em>$4.50</em></div>
+          <p>Carne de res, queso, lechuga, tomate y salsa de la casa en pan suave.</p></div>
+      </article>
+      <article class="dish">
+        <div class="photo"><span class="fn">6.png</span><img src="6.png" alt="Sánduche de pollo" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div><div class="row"><b>MiniSánduche de pollo</b><i></i><em>$3.90</em></div>
+          <p>Pechuga de pollo tierna, vegetales frescos y mayonesa en pan crocante.</p></div>
+      </article>
+    </div>
+    <div class="folio">❦ 4 ❦</div>
+  </div></section>
+
+  <!-- PÁGINA 5: SAL -->
+  <section class="page salt"><div class="pad">
+    <div class="photo mark r"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+    <h3>Para picar</h3>
+    <div class="dishes">
+      <article class="dish">
+        <div class="photo"><span class="fn">7.png</span><img src="7.png" alt="Rollitos de jamón y queso" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div><div class="row"><b>Rollitos de jamón y queso</b><i></i><em>$3.20</em></div>
+          <p>Masa suave rellena de jamón y queso gratinado, con un toque de mantequilla.</p></div>
+      </article>
+    </div>
+    <div class="orn">❦ ✦ ❦</div>
+    <h3>Adicionales</h3>
+    <div class="dishes">
+      <article class="dish sm">
+        <div class="photo"><span class="fn">8.png</span><img src="8.png" alt="Salsa verde" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div><div class="row"><b>Salsa verde</b><i></i><em>$0.50</em></div>
+          <p>Cremosa, de cilantro y ají suave.</p></div>
+      </article>
+      <article class="dish sm">
+        <div class="photo"><span class="fn">9.png</span><img src="9.png" alt="Salsa rosa" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div><div class="row"><b>Salsa rosa</b><i></i><em>$0.50</em></div>
+          <p>Mayonesa y kétchup, el acompañante clásico.</p></div>
+      </article>
+    </div>
+    <div class="folio">❦ 5 ❦</div>
+  </div></section>
+
+  <!-- PÁGINA 6: DULCE -->
+  <section class="page sweet"><div class="pad">
+    <div class="photo mark l"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+    <h2>¡Dulzura en cada bocado!</h2>
+    <p class="sub">Mini antojos para compartir</p>
+    <div class="grid">
+      <article class="card" style="--c:#ffd6e8">
+        <div class="photo"><span class="fn">10.png</span><img src="10.png" alt="Mini alfajores" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <h4>Mini alfajores</h4><p>Rellenos de manjar y bañados en coco.</p><span class="price">$0.90 c/u</span>
+      </article>
+      <article class="card" style="--c:#c9e8ff">
+        <div class="photo"><span class="fn">11.png</span><img src="11.png" alt="Mini donas" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <h4>Mini donas</h4><p>Glaseadas con grageas de colores.</p><span class="price">$0.75 c/u</span>
+      </article>
+    </div>
+    <div class="sticker">🍬 ¡Pide por docena y ahorra!</div>
+    <div class="folio">6</div>
+  </div></section>
+
+  <!-- PÁGINA 7: DULCE -->
+  <section class="page sweet"><div class="pad">
+    <div class="photo mark r"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+    <h2>Vasitos de sueño</h2>
+    <p class="sub">Cremosos y listos para llevar</p>
+    <div class="grid">
+      <article class="card wide" style="--c:#fff3b0">
+        <div class="photo"><span class="fn">12.png</span><img src="12.png" alt="Vasito tiramisu" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="txt"><h4>Vasito tiramisu</h4>
+          <p>Bizcocho con café, crema de mascarpone y cacao.</p>
+          <span class="price">$3.50</span></div>
+      </article>
+      <article class="card" style="--c:#ffd6e8">
+        <div class="photo"><span class="fn">13.png</span><img src="13.png" alt="Vasito de gelatina" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <h4>Vasito de gelatina</h4><p>Capas de colores con sabor a fruta.</p><span class="price">$1.25</span>
+      </article>
+      <article class="card" style="--c:#c7f0d8">
+        <div class="photo"><span class="fn">14.png</span><img src="14.png" alt="Vasito cheesecake de oreo" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <h4>Vasito cheesecake de oreo</h4><p>Base de galleta oreo y crema suave.</p><span class="price">$3.00</span>
+      </article>
+    </div>
+    <div class="folio">7</div>
+  </div></section>
+
+  <!-- PÁGINA 8: DULCE -->
+  <section class="page sweet"><div class="pad">
+    <div class="photo mark l"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+    <h2>Dulces sorpresas</h2>
+    <p class="sub">Para picar y compartir</p>
+    <div class="grid">
+      <article class="card wide" style="--c:#fff3b0">
+        <div class="photo"><span class="fn">15.png</span><img src="15.png" alt="Vasito mousse de maracuyá" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="txt"><h4>Vasito mousse de maracuyá</h4>
+          <p>Mousse aireado con el toque ácido de la maracuyá.</p>
+          <span class="price">$2.75</span></div>
+      </article>
+      <article class="card" style="--c:#e5d4ff">
+        <div class="photo"><span class="fn">16.png</span><img src="16.png" alt="Cakepops" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <h4>Cakepops</h4><p>Bolitas de bizcocho en palito con cobertura.</p><span class="price">$1.50 c/u</span>
+      </article>
+      <article class="card" style="--c:#c9e8ff">
+        <div class="photo"><span class="fn">17.png</span><img src="17.png" alt="Postres (variados)" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <h4>Postres (variados)</h4><p>Surtido de postres del día.</p><span class="price">Desde $2.00</span>
+      </article>
+    </div>
+    <div class="folio">8</div>
+  </div></section>
+
+  <!-- PÁGINA 9: DULCE -->
+  <section class="page sweet"><div class="pad">
+    <div class="photo mark r"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+    <h2>Los favoritos</h2>
+    <p class="sub">Clásicos que nunca fallan</p>
+    <div class="grid">
+      <article class="card wide" style="--c:#ffd6e8">
+        <div class="photo"><span class="fn">18.png</span><img src="18.png" alt="Alfajores" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="txt"><h4>Alfajores</h4>
+          <p>Tradicionales, rellenos de manjar y azúcar glass.</p>
+          <span class="price">$1.50</span></div>
+      </article>
+      <article class="card" style="--c:#c7f0d8">
+        <div class="photo"><span class="fn">19.png</span><img src="19.png" alt="Gelatinas" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <h4>Gelatinas</h4><p>Gelatinas de sabores en porción individual.</p><span class="price">$1.00</span>
+      </article>
+      <article class="card" style="--c:#e5d4ff">
+        <div class="photo"><span class="fn">20.png</span><img src="20.png" alt="Cupcakes" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <h4>Cupcakes</h4><p>Esponjosos, con frosting de colores.</p><span class="price">$2.25</span>
+      </article>
+    </div>
+    <div class="folio">9</div>
+  </div></section>
+
+  <!-- PÁGINA 10: CONTRAPORTADA -->
+  <section class="page cover back" data-density="hard"><div class="pad">
+    <div class="badge">
+      <div class="photo logo"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+      <h1>¡Gracias<span>por tu visita!</span></h1>
+      <p>Pedidos y reservas: escríbenos</p>
+      <div class="contact">
+        <span class="ct-label">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          WhatsApp:
+        </span>
+        <b class="ct-num">0996640759</b>
+      </div>
+    </div>
+    <div class="tag">Hecho con sal, azúcar y cariño</div>
+  </div></section>
+
+</div>
+
+<p id="err" hidden>No se pudo cargar la librería StPageFlip. Revisa tu conexión a internet y recarga la página.</p>
+
+<!-- ================= CONTROLES ================= -->
+<div class="ctrl">
+  <button id="prev" aria-label="Página anterior">◀ Anterior</button>
+  <span id="count">Portada</span>
+  <button id="next" aria-label="Página siguiente">Siguiente ▶</button>
+</div>
+
+<!-- StPageFlip desde CDN (versión fija) -->
+<script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
+<script>
+  /* ============ 7. LÓGICA DEL FLIPBOOK ============ */
+  window.addEventListener('DOMContentLoaded', () => {
+    if (!window.St) { document.getElementById('err').hidden = false; return; }
+
+    const flip = new St.PageFlip(document.getElementById('book'), {
+      width: 420, height: 580,          // proporción base de cada página
+      size: 'stretch',                  // se adapta al contenedor
+      minWidth: 260, maxWidth: 520,
+      minHeight: 360, maxHeight: 740,
+      showCover: true,                  // portada y contraportada sueltas
+      maxShadowOpacity: 0.5,            // sombra del doblez
+      flippingTime: 900,                // duración del giro (ms)
+      usePortrait: true,                // 1 página en pantallas angostas (celular)
+      mobileScrollSupport: false,       // permite arrastrar sin hacer scroll
+      drawShadow: true
+    });
+
+    // Marca como cargadas las imágenes que ya estaban listas (oculta sus marcadores)
+    document.querySelectorAll('.photo img').forEach(i => { if (i.complete && i.naturalWidth) i.parentNode.classList.add('ok'); });
+
+    // Cargar todas las hojas del HTML
+    flip.loadFromHTML(document.querySelectorAll('.page'));
+
+    // Indicador de página
+    const count = document.getElementById('count');
+    const update = () => {
+      const i = flip.getCurrentPageIndex(), n = flip.getPageCount();
+      count.textContent = i === 0 ? 'Portada' : i === n - 1 ? 'Contraportada' : `Página ${i + 1} de ${n}`;
+    };
+    flip.on('flip', update);
+    flip.on('changeOrientation', update);
+    update();
+
+    // Botones y teclado
+    document.getElementById('prev').onclick = () => flip.flipPrev();
+    document.getElementById('next').onclick = () => flip.flipNext();
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') flip.flipNext();
+      if (e.key === 'ArrowLeft') flip.flipPrev();
+    });
+  });
+</script>
+</body>
+</html>
