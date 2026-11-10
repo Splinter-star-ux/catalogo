@@ -107,18 +107,6 @@
   .salt h2{font-size:9.5cqw;font-weight:800;text-align:center;color:var(--wood);line-height:1}
   .orn{text-align:center;color:var(--terra);letter-spacing:2cqw;font-size:4.5cqw}
   .salt h3{font-size:5.6cqw;color:var(--terra);border-bottom:.5cqw solid var(--wood);padding-bottom:.8cqw;font-weight:600}
-  .dishes{flex:1;display:flex;flex-direction:column;justify-content:space-around;gap:2cqw}
-  .dish{display:grid;grid-template-columns:34cqw 1fr;gap:4cqw;align-items:center}
-  .salt .photo{aspect-ratio:1;border:1cqw solid var(--wood);border-radius:2cqw;background:#e9dab5;
-    box-shadow:inset 0 0 4cqw #5c3a2144,1cqw 1cqw 0 #5c3a2133;outline:.5cqw dashed var(--terra);outline-offset:-2.2cqw}
-  .row{display:flex;align-items:baseline;gap:1.2cqw}
-  .row b{font-size:5cqw;color:var(--wood)}
-  .row i{flex:1;border-bottom:.6cqw dotted var(--wood);transform:translateY(-.8cqw)}
-  .row em{font-size:5cqw;font-weight:800;color:var(--terra);font-style:normal}
-  .dish p{font-size:3.5cqw;line-height:1.45;margin-top:1cqw}
-  .dish.sm{grid-template-columns:20cqw 1fr}
-  .dish.sm .row b,.dish.sm .row em{font-size:4.4cqw}
-
   /* ============ 5. MUNDO DULCE (candy / colorido) ============ */
   .sweet{
     font-family:var(--round);color:#5a2a45;
@@ -130,20 +118,36 @@
   .sweet h2{font-size:10.5cqw;line-height:.95;text-align:center;color:var(--berry);font-weight:700;
     text-shadow:.6cqw .6cqw 0 #fff,1.2cqw 1.2cqw 0 #ffb3d1;transform:rotate(-2deg)}
   .sweet .sub{text-align:center;font-weight:600;font-size:4.4cqw;color:#7b4a8a}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5cqw;flex:1;min-height:0}
-  .card{background:var(--c,#fff);border-radius:5cqw;padding:3cqw;display:flex;flex-direction:column;align-items:center;
-    text-align:center;gap:1.2cqw;box-shadow:0 1.2cqw 0 #0002;border:.8cqw solid #fff;transition:transform .25s}
-  .card:nth-child(odd){transform:rotate(-1.6deg)}.card:nth-child(even){transform:rotate(1.6deg)}
-  .card:hover{transform:rotate(0) scale(1.04)}
-  .card .photo{width:100%;flex:1;min-height:0;border-radius:3.5cqw;background:#ffffffaa;border:.7cqw dashed #fff}
-  .card h4{font-size:5.2cqw;line-height:1.05;font-weight:700}
-  .card p{font-size:3.3cqw;line-height:1.25}
-  .price{background:var(--berry);color:#fff;font-weight:700;font-size:4cqw;padding:.8cqw 3.5cqw;border-radius:99px}
-  .wide{grid-column:1/-1;flex-direction:row;text-align:left;gap:4cqw}
-  .wide .photo{width:36cqw;flex:none;height:100%}
-  .wide .txt{display:flex;flex-direction:column;gap:1.5cqw;align-items:flex-start}
-  .sticker{align-self:center;background:#fff;color:var(--berry);font-weight:700;font-size:4.2cqw;padding:2cqw 5cqw;
-    border-radius:99px;box-shadow:0 1cqw 0 var(--berry);transform:rotate(-2deg)}
+  /* ============ 5b. PRODUCTOS: fila con foto enmarcada (cobre) y precios por cantidad ============ */
+  :root{--ph:19cqw}
+  .items{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-around;gap:1.6cqw}
+  .it{display:grid;grid-template-columns:var(--ph) 1fr;gap:4.5cqw;align-items:center;padding:1.2cqw 0 1.2cqw 1.2cqw}
+  /* Marco clásico cobrizo: filete dorado, hueco oscuro y borde cobre; la foto llena el recuadro (cover) */
+  .fr{width:var(--ph);height:var(--ph);border-radius:1.2cqw;border:.6cqw solid var(--cu);
+    box-shadow:0 0 0 .5cqw var(--wine-d),0 0 0 .9cqw var(--gold),0 1.2cqw 2.4cqw #0006;background:var(--mat,#e9dab5)}
+  .fr::after{content:"";position:absolute;inset:.6cqw;border:.25cqw solid #fbe3cc99;border-radius:.7cqw;pointer-events:none}
+  .inf{min-width:0}
+  .row{display:flex;align-items:baseline;gap:1.2cqw}
+  .row b{font-size:4cqw;line-height:1.15}
+  .row i{flex:1;min-width:2cqw;border-bottom:.5cqw dotted currentColor;opacity:.5;transform:translateY(-.7cqw)}
+  .row em{font-style:normal;font-weight:800;font-size:4.2cqw;white-space:nowrap}
+  .row small{font-size:2.4cqw;font-weight:600;opacity:.75;margin-right:.4cqw}
+  .note{display:block;font-size:2.8cqw;font-style:italic;opacity:.8;margin-top:.6cqw;line-height:1.25}
+  .tiers{list-style:none;display:flex;flex-wrap:wrap;gap:.6cqw 2.4cqw;margin-top:1.4cqw;font:500 2.9cqw/1.3 var(--round)}
+  .tiers li{white-space:nowrap}
+  .tiers s{text-decoration:none;opacity:.7}
+  .tiers b{font-weight:700}
+  .salt .row b{color:var(--wood)}
+  .salt .row em,.salt .tiers b{color:var(--terra)}
+  .sweet .it{background:var(--c,#fff);border:.6cqw solid #fff;border-radius:4cqw;padding:1.2cqw 3cqw 1.2cqw 1.4cqw;box-shadow:0 .9cqw 0 #0002;transition:transform .25s}
+  .sweet .it:hover{transform:scale(1.015)}
+  .sweet .fr{--mat:#fff}
+  .sweet .row{align-items:center;justify-content:space-between}
+  .sweet .row i{display:none}
+  .sweet .row b{font-family:var(--round);font-weight:700;font-size:4.2cqw}
+  .sweet .row em{background:var(--berry);color:#fff;padding:.5cqw 2.4cqw;border-radius:99px;font-size:3.8cqw}
+  .sweet .tiers b{color:var(--berry)}
+  .sweet h2.sm{font-size:7.4cqw}
 
   /* ============ 6. CONTROLES ============ */
   .ctrl{display:flex;align-items:center;gap:14px;color:#f3e6d0;font-size:15px}
@@ -152,7 +156,7 @@
   .ctrl button:active{transform:translateY(2px);box-shadow:0 1px 0 var(--terra)}
   .ctrl button:focus-visible{outline:3px solid var(--pink);outline-offset:2px}
   #err{color:#ffd5d5;text-align:center;padding:20px}
-  @media (prefers-reduced-motion:reduce){.card{transition:none}}
+  @media (prefers-reduced-motion:reduce){.sweet .it{transition:none}}
 </style>
 <script>
   /* Si "nombre.png" no existe prueba "nombre.jpg"; si tampoco, quita la <img> y queda el marcador */
@@ -182,7 +186,7 @@
 
 <!-- ================= LIBRO ================= -->
 <!-- Cada .page es una hoja. data-density="hard" = tapa dura (portada/contraportada). -->
-<!-- Fotos locales: guarda junto a este archivo logo.png y las imágenes numeradas 1.png a 20.png (una por plato, en el orden del catálogo). Acepta .png o .jpg. Sin archivo se ve el marcador. -->
+<!-- Fotos locales: guarda junto a este archivo logo.png y las imágenes numeradas 1.png a 35.png (una por plato, en el orden del catálogo). Acepta .png o .jpg. Sin archivo se ve el marcador. -->
 <div id="book">
 
   <!-- PÁGINA 1: PORTADA -->
@@ -207,19 +211,29 @@
   <section class="page salt"><div class="pad">
     <div class="photo mark l"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
     <p class="kicker">Mesón &amp; Cocina de Leña</p>
-    <h2>Sabores de Sal</h2>
+    <h2>Bocaditos de Sal</h2>
     <div class="orn">❦ ✦ ❦</div>
-    <h3>Empanadas de horno</h3>
-    <div class="dishes">
-      <article class="dish">
-        <div class="photo"><span class="fn">1.png</span><img src="1.png" alt="Empanadas de carne" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <div><div class="row"><b>Empanadas de carne</b><i></i><em>$2.75</em></div>
-          <p>Carne molida sazonada con comino, aceitunas y huevo cocido.</p></div>
+    <div class="items">
+      <article class="it">
+        <div class="photo fr"><span class="fn">1.png</span><img src="1.png" alt="Rollo de salchicha" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Rollo de salchicha</b><i></i><em><small>PVP</small> $0.25</em></div>
+          <ul class="tiers"><li><s>25 un</s> <b>$6.00</b></li><li><s>50 un</s> <b>$12.00</b></li><li><s>100 un</s> <b>$24.00</b></li></ul>
+        </div>
       </article>
-      <article class="dish">
-        <div class="photo"><span class="fn">2.png</span><img src="2.png" alt="Empanadas de pollo" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <div><div class="row"><b>Empanadas de pollo</b><i></i><em>$2.50</em></div>
-          <p>Pollo desmechado con refrito de cebolla y pimiento, masa dorada.</p></div>
+      <article class="it">
+        <div class="photo fr"><span class="fn">2.png</span><img src="2.png" alt="Empanada de pollo" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Empanada de pollo</b><i></i><em><small>PVP</small> $0.25</em></div>
+          <ul class="tiers"><li><s>25 un</s> <b>$6.00</b></li><li><s>50 un</s> <b>$12.00</b></li><li><s>100 un</s> <b>$24.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it">
+        <div class="photo fr"><span class="fn">3.png</span><img src="3.png" alt="Empanada de carne" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Empanada de carne</b><i></i><em><small>PVP</small> $0.25</em></div>
+          <ul class="tiers"><li><s>25 un</s> <b>$6.00</b></li><li><s>50 un</s> <b>$12.00</b></li><li><s>100 un</s> <b>$24.00</b></li></ul>
+        </div>
       </article>
     </div>
     <div class="folio">❦ 2 ❦</div>
@@ -229,17 +243,35 @@
   <section class="page salt"><div class="pad">
     <div class="photo mark r"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
     <p class="kicker">Recetas de la casa</p>
-    <h3>Empanadas y rollitos</h3>
-    <div class="dishes">
-      <article class="dish">
-        <div class="photo"><span class="fn">3.png</span><img src="3.png" alt="Empanadas de queso con jamón" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <div><div class="row"><b>Empanadas de queso con jamón</b><i></i><em>$2.50</em></div>
-          <p>Queso fundido y jamón en una masa crocante recién horneada.</p></div>
+    <h3>Bocaditos de Sal</h3>
+    <div class="items">
+      <article class="it">
+        <div class="photo fr"><span class="fn">4.png</span><img src="4.png" alt="Empanada de jamón y queso" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Empanada de jamón y queso</b><i></i><em><small>PVP</small> $0.25</em></div>
+          <ul class="tiers"><li><s>25 un</s> <b>$6.00</b></li><li><s>50 un</s> <b>$12.00</b></li><li><s>100 un</s> <b>$24.00</b></li></ul>
+        </div>
       </article>
-      <article class="dish">
-        <div class="photo"><span class="fn">4.png</span><img src="4.png" alt="Rollitos de salchicha" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <div><div class="row"><b>Rollitos de salchicha</b><i></i><em>$1.80</em></div>
-          <p>Salchicha jugosa envuelta en masa hojaldrada y dorada.</p></div>
+      <article class="it">
+        <div class="photo fr"><span class="fn">5.png</span><img src="5.png" alt="Hamburguesa bocadito" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Hamburguesa bocadito</b><i></i><em><small>PVP</small> $0.60</em></div>
+          <ul class="tiers"><li><s>12 un</s> <b>$7.00</b></li><li><s>25 un</s> <b>$14.00</b></li><li><s>50 un</s> <b>$27.00</b></li><li><s>100 un</s> <b>$53.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it">
+        <div class="photo fr"><span class="fn">6.png</span><img src="6.png" alt="Sánduche de pollo" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Sánduche de pollo</b><i></i><em><small>PVP</small> $0.45</em></div>
+          <ul class="tiers"><li><s>12 un</s> <b>$5.25</b></li><li><s>25 un</s> <b>$10.50</b></li><li><s>50 un</s> <b>$20.00</b></li><li><s>100 un</s> <b>$39.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it">
+        <div class="photo fr"><span class="fn">7.png</span><img src="7.png" alt="Wrap de pollo" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Wrap de pollo</b><i></i><em><small>PVP</small> $0.40</em></div>
+          <ul class="tiers"><li><s>12 un</s> <b>$4.50</b></li><li><s>25 un</s> <b>$9.00</b></li><li><s>50 un</s> <b>$18.00</b></li><li><s>100 un</s> <b>$35.00</b></li></ul>
+        </div>
       </article>
     </div>
     <div class="folio">❦ 3 ❦</div>
@@ -248,89 +280,129 @@
   <!-- PÁGINA 4: SAL -->
   <section class="page salt"><div class="pad">
     <div class="photo mark l"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-    <p class="kicker">Del fogón a tu mesa</p>
-    <h3>Hamburguesa y sánduche</h3>
-    <div class="dishes">
-      <article class="dish">
-        <div class="photo"><span class="fn">5.png</span><img src="5.png" alt="Hamburguesa" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <div><div class="row"><b>Mini Hamburguesa</b><i></i><em>$4.50</em></div>
-          <p>Carne de res, queso, lechuga, tomate y salsa de la casa en pan suave.</p></div>
+    <p class="kicker">Recetas de la casa</p>
+    <h3>Bocaditos de Sal</h3>
+    <div class="items">
+      <article class="it">
+        <div class="photo fr"><span class="fn">8.png</span><img src="8.png" alt="Mini pan de yuca" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Mini pan de yuca</b><i></i><em><small>PVP</small> $0.20</em></div>
+          <ul class="tiers"><li><s>25 un</s> <b>$5.00</b></li><li><s>50 un</s> <b>$9.50</b></li><li><s>100 un</s> <b>$18.00</b></li></ul>
+        </div>
       </article>
-      <article class="dish">
-        <div class="photo"><span class="fn">6.png</span><img src="6.png" alt="Sánduche de pollo" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <div><div class="row"><b>MiniSánduche de pollo</b><i></i><em>$3.90</em></div>
-          <p>Pechuga de pollo tierna, vegetales frescos y mayonesa en pan crocante.</p></div>
+      <article class="it">
+        <div class="photo fr"><span class="fn">9.png</span><img src="9.png" alt="Bolitas de carne" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Bolitas de carne</b><i></i><em><small>PVP</small> $0.25</em></div>
+          <ul class="tiers"><li><s>12 un</s> <b>$3.00</b></li><li><s>25 un</s> <b>$6.00</b></li><li><s>50 un</s> <b>$12.00</b></li><li><s>100 un</s> <b>$23.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it">
+        <div class="photo fr"><span class="fn">10.png</span><img src="10.png" alt="Rollitos de jamón y queso" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Rollitos de jamón y queso</b><i></i><em><small>PVP</small> $0.40</em></div>
+          <ul class="tiers"><li><s>12 un</s> <b>$4.50</b></li><li><s>25 un</s> <b>$9.00</b></li><li><s>50 un</s> <b>$18.00</b></li><li><s>100 un</s> <b>$35.00</b></li></ul>
+        </div>
       </article>
     </div>
     <div class="folio">❦ 4 ❦</div>
   </div></section>
 
-  <!-- PÁGINA 5: SAL -->
-  <section class="page salt"><div class="pad">
+  <!-- PÁGINA 5: DULCE -->
+  <section class="page sweet"><div class="pad">
     <div class="photo mark r"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-    <h3>Para picar</h3>
-    <div class="dishes">
-      <article class="dish">
-        <div class="photo"><span class="fn">7.png</span><img src="7.png" alt="Rollitos de jamón y queso" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <div><div class="row"><b>Rollitos de jamón y queso</b><i></i><em>$3.20</em></div>
-          <p>Masa suave rellena de jamón y queso gratinado, con un toque de mantequilla.</p></div>
+    <h2>Bocaditos de Dulce</h2>
+    <p class="sub">¡Dulzura en cada bocado!</p>
+    <div class="items">
+      <article class="it" style="--c:#c9e8ff">
+        <div class="photo fr"><span class="fn">11.png</span><img src="11.png" alt="Mousse de maracuyá cuchareable" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Mousse de maracuyá cuchareable</b><i></i><em><small>PVP</small> $0.70</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$4.00</b></li><li><s>12 un</s> <b>$8.00</b></li><li><s>24 un</s> <b>$15.00</b></li><li><s>50 un</s> <b>$30.00</b></li><li><s>100 un</s> <b>$58.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it" style="--c:#fff3b0">
+        <div class="photo fr"><span class="fn">12.png</span><img src="12.png" alt="Cheesecake oreo cuchareable" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Cheesecake oreo cuchareable</b><i></i><em><small>PVP</small> $0.70</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$4.00</b></li><li><s>12 un</s> <b>$8.00</b></li><li><s>24 un</s> <b>$15.00</b></li><li><s>50 un</s> <b>$30.00</b></li><li><s>100 un</s> <b>$58.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it" style="--c:#c7f0d8">
+        <div class="photo fr"><span class="fn">13.png</span><img src="13.png" alt="Tiramisú cuchareable" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Tiramisú cuchareable</b><i></i><em><small>PVP</small> $0.70</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$4.00</b></li><li><s>12 un</s> <b>$8.00</b></li><li><s>24 un</s> <b>$15.00</b></li><li><s>50 un</s> <b>$30.00</b></li><li><s>100 un</s> <b>$58.00</b></li></ul>
+        </div>
       </article>
     </div>
-    <div class="orn">❦ ✦ ❦</div>
-    <h3>Adicionales</h3>
-    <div class="dishes">
-      <article class="dish sm">
-        <div class="photo"><span class="fn">8.png</span><img src="8.png" alt="Salsa verde" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <div><div class="row"><b>Salsa verde</b><i></i><em>$0.50</em></div>
-          <p>Cremosa, de cilantro y ají suave.</p></div>
-      </article>
-      <article class="dish sm">
-        <div class="photo"><span class="fn">9.png</span><img src="9.png" alt="Salsa rosa" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <div><div class="row"><b>Salsa rosa</b><i></i><em>$0.50</em></div>
-          <p>Mayonesa y kétchup, el acompañante clásico.</p></div>
-      </article>
-    </div>
-    <div class="folio">❦ 5 ❦</div>
+    <div class="folio">5</div>
   </div></section>
 
   <!-- PÁGINA 6: DULCE -->
   <section class="page sweet"><div class="pad">
     <div class="photo mark l"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-    <h2>¡Dulzura en cada bocado!</h2>
-    <p class="sub">Mini antojos para compartir</p>
-    <div class="grid">
-      <article class="card" style="--c:#ffd6e8">
-        <div class="photo"><span class="fn">10.png</span><img src="10.png" alt="Mini alfajores" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <h4>Mini alfajores</h4><p>Rellenos de manjar y bañados en coco.</p><span class="price">$0.90 c/u</span>
+    <h2 class="sm">Bocaditos de Dulce</h2>
+    <div class="items">
+      <article class="it" style="--c:#e5d4ff">
+        <div class="photo fr"><span class="fn">14.png</span><img src="14.png" alt="Gelatina cuchareable" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Gelatina cuchareable</b><i></i><em><small>PVP</small> $0.40</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$2.00</b></li><li><s>12 un</s> <b>$4.00</b></li><li><s>24 un</s> <b>$7.50</b></li><li><s>50 un</s> <b>$15.00</b></li><li><s>100 un</s> <b>$28.00</b></li></ul>
+        </div>
       </article>
-      <article class="card" style="--c:#c9e8ff">
-        <div class="photo"><span class="fn">11.png</span><img src="11.png" alt="Mini donas" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <h4>Mini donas</h4><p>Glaseadas con grageas de colores.</p><span class="price">$0.75 c/u</span>
+      <article class="it" style="--c:#ffd6e8">
+        <div class="photo fr"><span class="fn">15.png</span><img src="15.png" alt="Minidonas" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Minidonas</b><i></i><em><small>PVP</small> $0.15</em></div>
+          <ul class="tiers"><li><s>24 un</s> <b>$3.50</b></li><li><s>50 un</s> <b>$7.00</b></li><li><s>100 un</s> <b>$14.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it" style="--c:#c9e8ff">
+        <div class="photo fr"><span class="fn">16.png</span><img src="16.png" alt="Mini alfajores" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Mini alfajores</b><i></i><em><small>PVP</small> $0.15</em></div>
+          <ul class="tiers"><li><s>24 un</s> <b>$3.50</b></li><li><s>50 un</s> <b>$7.00</b></li><li><s>100 un</s> <b>$14.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it" style="--c:#fff3b0">
+        <div class="photo fr"><span class="fn">17.png</span><img src="17.png" alt="Cake pop" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Cake pop</b><i></i><em><small>PVP</small> $0.50</em></div>
+          <ul class="tiers"><li><s>12 un</s> <b>$6.00</b></li><li><s>24 un</s> <b>$11.50</b></li><li><s>50 un</s> <b>$23.00</b></li><li><s>100 un</s> <b>$45.00</b></li></ul>
+        </div>
       </article>
     </div>
-    <div class="sticker">🍬 ¡Pide por docena y ahorra!</div>
     <div class="folio">6</div>
   </div></section>
 
   <!-- PÁGINA 7: DULCE -->
   <section class="page sweet"><div class="pad">
     <div class="photo mark r"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-    <h2>Vasitos de sueño</h2>
-    <p class="sub">Cremosos y listos para llevar</p>
-    <div class="grid">
-      <article class="card wide" style="--c:#fff3b0">
-        <div class="photo"><span class="fn">12.png</span><img src="12.png" alt="Vasito tiramisu" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <div class="txt"><h4>Vasito tiramisu</h4>
-          <p>Bizcocho con café, crema de mascarpone y cacao.</p>
-          <span class="price">$3.50</span></div>
+    <h2>Porciones</h2>
+    <p class="sub">Dulces</p>
+    <div class="items">
+      <article class="it" style="--c:#c7f0d8">
+        <div class="photo fr"><span class="fn">18.png</span><img src="18.png" alt="Cupcakes" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Cupcakes</b><i></i><em><small>PVP</small> $0.35</em></div>
+          <ul class="tiers"><li><s>12 un</s> <b>$4.00</b></li><li><s>24 un</s> <b>$8.00</b></li><li><s>50 un</s> <b>$16.00</b></li><li><s>100 un</s> <b>$32.00</b></li></ul>
+        </div>
       </article>
-      <article class="card" style="--c:#ffd6e8">
-        <div class="photo"><span class="fn">13.png</span><img src="13.png" alt="Vasito de gelatina" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <h4>Vasito de gelatina</h4><p>Capas de colores con sabor a fruta.</p><span class="price">$1.25</span>
+      <article class="it" style="--c:#e5d4ff">
+        <div class="photo fr"><span class="fn">19.png</span><img src="19.png" alt="Gelatina" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Gelatina</b><i></i><em><small>PVP</small> $0.75</em></div>
+          <small class="note">120g sabor, 60g cremosa</small>
+          <ul class="tiers"><li><s>6 un</s> <b>$4.50</b></li><li><s>12 un</s> <b>$8.50</b></li><li><s>24 un</s> <b>$16.00</b></li><li><s>50 un</s> <b>$32.00</b></li><li><s>100 un</s> <b>$62.00</b></li></ul>
+        </div>
       </article>
-      <article class="card" style="--c:#c7f0d8">
-        <div class="photo"><span class="fn">14.png</span><img src="14.png" alt="Vasito cheesecake de oreo" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <h4>Vasito cheesecake de oreo</h4><p>Base de galleta oreo y crema suave.</p><span class="price">$3.00</span>
+      <article class="it" style="--c:#ffd6e8">
+        <div class="photo fr"><span class="fn">20.png</span><img src="20.png" alt="Combo 1 gelatina + cupcake" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Combo 1 gelatina + cupcake</b><i></i><em><small>PVP</small> $1.00</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$6.00</b></li><li><s>12 un</s> <b>$12.00</b></li><li><s>24 un</s> <b>$24.00</b></li><li><s>50 un</s> <b>$48.00</b></li><li><s>100 un</s> <b>$94.00</b></li></ul>
+        </div>
       </article>
     </div>
     <div class="folio">7</div>
@@ -339,52 +411,150 @@
   <!-- PÁGINA 8: DULCE -->
   <section class="page sweet"><div class="pad">
     <div class="photo mark l"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-    <h2>Dulces sorpresas</h2>
-    <p class="sub">Para picar y compartir</p>
-    <div class="grid">
-      <article class="card wide" style="--c:#fff3b0">
-        <div class="photo"><span class="fn">15.png</span><img src="15.png" alt="Vasito mousse de maracuyá" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <div class="txt"><h4>Vasito mousse de maracuyá</h4>
-          <p>Mousse aireado con el toque ácido de la maracuyá.</p>
-          <span class="price">$2.75</span></div>
+    <h2 class="sm">Porciones</h2>
+    <div class="items">
+      <article class="it" style="--c:#c9e8ff">
+        <div class="photo fr"><span class="fn">21.png</span><img src="21.png" alt="Combo 1 gelatina + 2 cupcakes" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Combo 1 gelatina + 2 cupcakes</b><i></i><em><small>PVP</small> $1.30</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$7.80</b></li><li><s>12 un</s> <b>$15.50</b></li><li><s>24 un</s> <b>$31.00</b></li><li><s>50 un</s> <b>$63.00</b></li><li><s>100 un</s> <b>$125.00</b></li></ul>
+        </div>
       </article>
-      <article class="card" style="--c:#e5d4ff">
-        <div class="photo"><span class="fn">16.png</span><img src="16.png" alt="Cakepops" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <h4>Cakepops</h4><p>Bolitas de bizcocho en palito con cobertura.</p><span class="price">$1.50 c/u</span>
+      <article class="it" style="--c:#fff3b0">
+        <div class="photo fr"><span class="fn">22.png</span><img src="22.png" alt="Tiramisú 4*4" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Tiramisú 4*4</b><i></i><em><small>PVP</small> $3.00</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$18.00</b></li><li><s>12 un</s> <b>$35.00</b></li><li><s>24 un</s> <b>$70.00</b></li><li><s>50 un</s> <b>$145.00</b></li><li><s>100 un</s> <b>$280.00</b></li></ul>
+        </div>
       </article>
-      <article class="card" style="--c:#c9e8ff">
-        <div class="photo"><span class="fn">17.png</span><img src="17.png" alt="Postres (variados)" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <h4>Postres (variados)</h4><p>Surtido de postres del día.</p><span class="price">Desde $2.00</span>
+      <article class="it" style="--c:#c7f0d8">
+        <div class="photo fr"><span class="fn">23.png</span><img src="23.png" alt="Mousse de maracuyá 4*4" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Mousse de maracuyá 4*4</b><i></i><em><small>PVP</small> $2.00</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$12.00</b></li><li><s>12 un</s> <b>$24.00</b></li><li><s>24 un</s> <b>$47.00</b></li><li><s>50 un</s> <b>$94.00</b></li><li><s>100 un</s> <b>$185.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it" style="--c:#e5d4ff">
+        <div class="photo fr"><span class="fn">24.png</span><img src="24.png" alt="Alfajores" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Alfajores</b><i></i><em><small>PVP</small> $1.10</em></div>
+          <small class="note">Incluye 4 alfajores en recipiente individual</small>
+          <ul class="tiers"><li><s>6 un</s> <b>$6.00</b></li><li><s>12 un</s> <b>$11.50</b></li><li><s>24 un</s> <b>$22.00</b></li><li><s>50 un</s> <b>$43.00</b></li><li><s>100 un</s> <b>$85.00</b></li></ul>
+        </div>
       </article>
     </div>
     <div class="folio">8</div>
   </div></section>
 
-  <!-- PÁGINA 9: DULCE -->
-  <section class="page sweet"><div class="pad">
+  <!-- PÁGINA 9: SAL -->
+  <section class="page salt"><div class="pad">
     <div class="photo mark r"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-    <h2>Los favoritos</h2>
-    <p class="sub">Clásicos que nunca fallan</p>
-    <div class="grid">
-      <article class="card wide" style="--c:#ffd6e8">
-        <div class="photo"><span class="fn">18.png</span><img src="18.png" alt="Alfajores" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <div class="txt"><h4>Alfajores</h4>
-          <p>Tradicionales, rellenos de manjar y azúcar glass.</p>
-          <span class="price">$1.50</span></div>
+    <p class="kicker">Mesón &amp; Cocina de Leña</p>
+    <h2>Porciones</h2>
+    <div class="orn">❦ ✦ ❦</div>
+    <h3>Saladas</h3>
+    <div class="items">
+      <article class="it">
+        <div class="photo fr"><span class="fn">25.png</span><img src="25.png" alt="Empanada de pollo" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Empanada de pollo</b><i></i><em><small>PVP</small> $0.80</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$4.80</b></li><li><s>12 un</s> <b>$9.00</b></li><li><s>24 un</s> <b>$18.00</b></li><li><s>50 un</s> <b>$35.00</b></li><li><s>100 un</s> <b>$70.00</b></li></ul>
+        </div>
       </article>
-      <article class="card" style="--c:#c7f0d8">
-        <div class="photo"><span class="fn">19.png</span><img src="19.png" alt="Gelatinas" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <h4>Gelatinas</h4><p>Gelatinas de sabores en porción individual.</p><span class="price">$1.00</span>
+      <article class="it">
+        <div class="photo fr"><span class="fn">26.png</span><img src="26.png" alt="Empanada de carne" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Empanada de carne</b><i></i><em><small>PVP</small> $0.80</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$4.80</b></li><li><s>12 un</s> <b>$9.00</b></li><li><s>24 un</s> <b>$18.00</b></li><li><s>50 un</s> <b>$35.00</b></li><li><s>100 un</s> <b>$70.00</b></li></ul>
+        </div>
       </article>
-      <article class="card" style="--c:#e5d4ff">
-        <div class="photo"><span class="fn">20.png</span><img src="20.png" alt="Cupcakes" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
-        <h4>Cupcakes</h4><p>Esponjosos, con frosting de colores.</p><span class="price">$2.25</span>
+      <article class="it">
+        <div class="photo fr"><span class="fn">27.png</span><img src="27.png" alt="Empanada queso y jamón" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Empanada queso y jamón</b><i></i><em><small>PVP</small> $0.65</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$3.90</b></li><li><s>12 un</s> <b>$7.50</b></li><li><s>24 un</s> <b>$15.00</b></li><li><s>50 un</s> <b>$31.00</b></li><li><s>100 un</s> <b>$60.00</b></li></ul>
+        </div>
       </article>
     </div>
-    <div class="folio">9</div>
+    <div class="folio">❦ 9 ❦</div>
   </div></section>
 
-  <!-- PÁGINA 10: CONTRAPORTADA -->
+  <!-- PÁGINA 10: SAL -->
+  <section class="page salt"><div class="pad">
+    <div class="photo mark l"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+    <p class="kicker">Recetas de la casa</p>
+    <h3>Porciones saladas</h3>
+    <div class="items">
+      <article class="it">
+        <div class="photo fr"><span class="fn">28.png</span><img src="28.png" alt="Empanada de pollo + café" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Empanada de pollo + café</b><i></i><em><small>PVP</small> $1.25</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$7.50</b></li><li><s>12 un</s> <b>$14.50</b></li><li><s>24 un</s> <b>$28.50</b></li><li><s>50 un</s> <b>$57.50</b></li><li><s>100 un</s> <b>$115.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it">
+        <div class="photo fr"><span class="fn">29.png</span><img src="29.png" alt="Empanada de carne + café" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Empanada de carne + café</b><i></i><em><small>PVP</small> $1.25</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$7.50</b></li><li><s>12 un</s> <b>$12.50 / $14.50</b></li><li><s>24 un</s> <b>$28.50</b></li><li><s>50 un</s> <b>$57.50</b></li><li><s>100 un</s> <b>$115.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it">
+        <div class="photo fr"><span class="fn">30.png</span><img src="30.png" alt="Empanada de queso y jamón + café" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Empanada de queso y jamón + café</b><i></i><em><small>PVP</small> $1.10</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$6.60</b></li><li><s>12 un</s> <b>$13.00</b></li><li><s>24 un</s> <b>$25.50</b></li><li><s>50 un</s> <b>$53.50</b></li><li><s>100 un</s> <b>$105.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it">
+        <div class="photo fr"><span class="fn">31.png</span><img src="31.png" alt="Wraps de pollo" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Wraps de pollo</b><i></i><em><small>PVP</small> $0.80</em></div>
+          <ul class="tiers"><li><s>6 un</s> <b>$4.80</b></li><li><s>12 un</s> <b>$9.00</b></li><li><s>24 un</s> <b>$18.00</b></li><li><s>50 un</s> <b>$35.00</b></li><li><s>100 un</s> <b>$70.00</b></li></ul>
+        </div>
+      </article>
+    </div>
+    <div class="folio">❦ 10 ❦</div>
+  </div></section>
+
+  <!-- PÁGINA 11: SAL -->
+  <section class="page salt"><div class="pad">
+    <div class="photo mark r"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+    <p class="kicker">Recetas de la casa</p>
+    <h3>Porciones saladas</h3>
+    <div class="items">
+      <article class="it">
+        <div class="photo fr"><span class="fn">32.png</span><img src="32.png" alt="Mini hamburguesa" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Mini hamburguesa</b><i></i><em><small>PVP</small> $0.80</em></div>
+          <ul class="tiers"><li><s>12 un</s> <b>$9.00</b></li><li><s>24 un</s> <b>$18.00</b></li><li><s>50 un</s> <b>$35.00</b></li><li><s>100 un</s> <b>$70.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it">
+        <div class="photo fr"><span class="fn">33.png</span><img src="33.png" alt="Mini sánduche de pollo" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Mini sánduche de pollo</b><i></i><em><small>PVP</small> $0.70</em></div>
+          <ul class="tiers"><li><s>12 un</s> <b>$8.25</b></li><li><s>24 un</s> <b>$16.00</b></li><li><s>50 un</s> <b>$32.00</b></li><li><s>100 un</s> <b>$63.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it">
+        <div class="photo fr"><span class="fn">34.png</span><img src="34.png" alt="Pan de yuca" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Pan de yuca</b><i></i><em><small>PVP</small> $0.35</em></div>
+          <ul class="tiers"><li><s>12 un</s> <b>$4.00</b></li><li><s>24 un</s> <b>$8.00</b></li><li><s>50 un</s> <b>$16.00</b></li><li><s>100 un</s> <b>$32.00</b></li></ul>
+        </div>
+      </article>
+      <article class="it">
+        <div class="photo fr"><span class="fn">35.png</span><img src="35.png" alt="Café pasado 8 oz" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
+        <div class="inf">
+          <div class="row"><b>Café pasado 8 oz</b><i></i><em><small>PVP</small> $0.50</em></div>
+        </div>
+      </article>
+    </div>
+    <div class="folio">❦ 11 ❦</div>
+  </div></section>
+
+  <!-- PÁGINA 12: CONTRAPORTADA -->
   <section class="page cover back" data-density="hard"><div class="pad">
     <div class="badge">
       <div class="photo logo"><img src="logo.png" alt="Lilith's Food" onerror="imgFallback(this)" onload="this.parentNode.classList.add('ok')"></div>
