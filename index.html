@@ -117,47 +117,47 @@
   .sweet::before{content:"";position:absolute;inset:3cqw;border:1cqw dashed #fff;border-radius:5cqw;pointer-events:none}
   .sweet h2{font-size:10.5cqw;line-height:.95;text-align:center;color:var(--berry);font-weight:700;
     text-shadow:.6cqw .6cqw 0 #fff,1.2cqw 1.2cqw 0 #ffb3d1;transform:rotate(-2deg)}
-  /* ============ 5b. PRODUCTOS (tarjetas marfil, marcos cobrizos y precios en badges) ============ */
+  /* ============ 5b. PRODUCTOS (tarjetas marfil, marcos dobles cobrizos y precios en badges) ============ */
   :root{--sans:'Jost','Segoe UI','Helvetica Neue',Arial,sans-serif;--ivory-1:#FFFDF7;--ivory-2:#F4E9D1;--cu-d:#8A5A47}
   .k1,.k2{--ph:30cqw}                         /* tamaño de la foto */
-  /* Títulos de categoría con filete cobrizo y rombo central */
-  .hd{position:relative;padding-bottom:3.4cqw;text-align:center;line-height:1}
+  /* Encabezado de sección: título y divisor ornamental cobrizo (SVG incrustado) */
+  .hd{position:relative;padding-bottom:4.2cqw;text-align:center;line-height:1;letter-spacing:.02em}
   .salt h2.hd{font-size:8cqw}
   .sweet h2.hd{font-size:7.8cqw;transform:none;text-shadow:0 .4cqw 0 #fff}
-  .hd::after{content:"";position:absolute;left:10%;right:10%;bottom:.2cqw;height:.45cqw;
-    background:linear-gradient(90deg,transparent,var(--cu) 12%,var(--cu) 45%,transparent 45%,transparent 55%,var(--cu) 55%,var(--cu) 88%,transparent)}
-  .hd::before{content:"";position:absolute;left:50%;bottom:-.5cqw;width:1.8cqw;height:1.8cqw;background:var(--cu);transform:translateX(-50%) rotate(45deg)}
-  .items{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-around;gap:3cqw}
-  /* Tarjeta de producto: marfil/pergamino fino con relieve y brillo cobrizo al pasar el cursor */
-  .it{display:grid;grid-template-columns:var(--ph) 1fr;gap:5cqw;align-items:center;padding:3.6cqw;border-radius:3cqw;
-    background:radial-gradient(circle at 12% 8%,#fff,transparent 55%),linear-gradient(160deg,var(--ivory-1),var(--ivory-2));
+  .hd::after{content:"";position:absolute;left:6%;right:6%;bottom:0;height:3.6cqw;
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 16' fill='none' stroke='%23C48B73' stroke-linecap='round'%3E%3Cpath d='M10 8H98M142 8H230' stroke-width='1.3'/%3E%3Cpath d='M26 12.5H98M142 12.5H214' stroke-width='.6'/%3E%3Cg fill='%23C48B73' stroke='none'%3E%3Cpath d='M120 1.5 127.5 8 120 14.5 112.5 8Z'/%3E%3Ccircle cx='104' cy='8' r='1.5'/%3E%3Ccircle cx='136' cy='8' r='1.5'/%3E%3Ccircle cx='5' cy='8' r='2'/%3E%3Ccircle cx='235' cy='8' r='2'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
+  .items{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:space-around;gap:2.2cqw}
+  .salt .pad,.sweet .pad{gap:2.4cqw;padding-bottom:5cqw}
+  /* Tarjeta de producto: marfil/pergamino translúcido con relieve; brillo cobrizo al pasar el cursor */
+  .it{display:grid;grid-template-columns:var(--ph) 1fr;gap:4.6cqw;align-items:center;padding:2.6cqw;border-radius:3cqw;
+    background:radial-gradient(circle at 12% 8%,#ffffffcc,transparent 55%),linear-gradient(160deg,#fffdf7f0,#f4e9d1ee);
     border:.35cqw solid #c48b7399;box-shadow:0 .4cqw .8cqw #3b222b22,0 1.8cqw 3.6cqw -.8cqw #3b222b55,inset 0 .25cqw 0 #fff;
     transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
   @media (hover:hover){
     .it:hover{transform:translateY(-.9cqw);border-color:var(--cu);
       box-shadow:0 .4cqw .8cqw #3b222b22,0 2.6cqw 4.6cqw -.8cqw #3b222b66,0 0 0 .4cqw #c48b7344,0 0 3.4cqw #c48b7355,inset 0 .25cqw 0 #fff}
+    .pk li:hover{transform:translateY(-.3cqw);box-shadow:0 .7cqw 1.2cqw #3b222b33}
   }
-  /* Marco clásico cobre/dorado: borde metálico, paspartú marfil y filete interior */
-  .fr{width:var(--ph);height:var(--ph);border-radius:1.8cqw;border:1cqw solid transparent;
+  /* Marco doble biselado: borde metálico cobre/dorado, paspartú marfil con bisel y dos filetes interiores */
+  .fr{width:var(--ph);height:var(--ph);border-radius:1.8cqw;border:1.1cqw solid transparent;
     background:linear-gradient(var(--ivory-2),var(--ivory-2)) padding-box,linear-gradient(135deg,#F6D9BF,#C48B73 38%,#9A6550 62%,#E3B08C) border-box;
-    box-shadow:0 1.2cqw 2.6cqw -.4cqw #3b222b66,0 .3cqw .6cqw #3b222b33}
-  .fr::after{content:"";position:absolute;inset:.7cqw;border:.25cqw solid #c48b7366;border-radius:.9cqw;pointer-events:none}
-  .photo.fr img{inset:1.7cqw;width:calc(100% - 3.4cqw);height:calc(100% - 3.4cqw);border-radius:.7cqw;box-shadow:0 0 0 .25cqw #c48b7388}
+    box-shadow:0 1.2cqw 2.6cqw -.4cqw #3b222b66,0 .3cqw .6cqw #3b222b33,inset .35cqw .35cqw .7cqw #ffffffcc,inset -.35cqw -.35cqw .7cqw #9a655055}
+  .fr::before{content:"";position:absolute;inset:.6cqw;border:.25cqw solid #c48b73;border-radius:1cqw;pointer-events:none}
+  .fr::after{content:"";position:absolute;inset:1.3cqw;border:.2cqw solid #e3b08c;border-radius:.7cqw;pointer-events:none}
+  .photo.fr img{inset:2cqw;width:calc(100% - 4cqw);height:calc(100% - 4cqw);border-radius:.5cqw;box-shadow:0 0 0 .3cqw #c48b73,0 .3cqw .8cqw #3b222b55}
   .fr .fn{font-size:6cqw;color:var(--cu-d);opacity:.7}
   .inf{min-width:0}
-  .nm{font:600 max(4.8cqw,13px)/1.18 var(--sans);color:var(--wine)}
-  .note{display:block;font:italic 400 max(3cqw,10px)/1.3 var(--sans);color:var(--cu-d);margin-top:.8cqw}
-  /* Precios por cantidad: badges en cuadrícula (el "Unitario" va resaltado en burdeos) */
-  .pk{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:1.4cqw;margin-top:2.2cqw}
-  .pk.c1{grid-template-columns:minmax(0,18cqw)}
-  .pk.c4{grid-template-columns:repeat(2,1fr)}
-  .pk.c5{grid-template-columns:repeat(6,1fr)}
-  .pk.c5 li{grid-column:span 2}
-  .pk.c5 li:nth-child(n+4){grid-column:span 3}
-  .pk li{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;line-height:1.2;
-    padding:1.3cqw .6cqw;border-radius:1.6cqw;background:var(--bg);border:.3cqw solid var(--ln);box-shadow:0 .4cqw .8cqw #3b222b1f}
-  .pk s{text-decoration:none;font:500 max(2.6cqw,9px) var(--sans);color:var(--cu-d);letter-spacing:.03em}
-  .pk b{font:600 max(3.4cqw,11px) var(--sans);font-variant-numeric:tabular-nums;color:var(--wine)}
+  .nm{font:600 max(4.5cqw,13px)/1.15 var(--sans);text-wrap:balance;letter-spacing:.01em;color:var(--wine)}
+  .note{display:block;font:italic 400 max(3cqw,10px)/1.3 var(--sans);color:var(--cu-d);margin-top:.7cqw}
+  /* Precios por cantidad: mini-cuadrícula de 2 columnas con micro-tarjetas (el "Unitario" va en burdeos) */
+  .pk{list-style:none;display:grid;grid-template-columns:repeat(2,1fr);gap:1cqw;margin-top:1.5cqw}
+  .pk.c1{grid-template-columns:minmax(0,22cqw)}
+  .pk li:last-child:nth-child(odd){grid-column:1/-1}
+  .pk li{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;line-height:1.15;
+    padding:.7cqw .6cqw;border-radius:1.6cqw;background:var(--bg);border:.3cqw solid var(--ln);box-shadow:0 .4cqw .8cqw #3b222b1f;
+    transition:transform .2s ease,box-shadow .2s ease}
+  .pk s{text-decoration:none;font:500 max(2.4cqw,8px) var(--sans);color:var(--cu-d);letter-spacing:.03em}
+  .pk b{font:600 max(3.2cqw,10px) var(--sans);font-variant-numeric:tabular-nums;color:var(--wine)}
   .pk .u{background:linear-gradient(160deg,#4a2a35,var(--wine-d));border-color:var(--cu)}
   .pk .u s{color:#E8C3AB}
   .pk .u b{color:#F6D9BF}
@@ -174,7 +174,7 @@
   .toc i{flex:1;border-bottom:.4cqw dotted #c48b7399;transform:translateY(-.8cqw)}
   .toc em{font:800 5.4cqw var(--serif);font-style:normal;color:var(--cu)}
   .toc button:hover,.toc button:focus-visible{color:#fff;padding-left:2.4cqw;outline:none}
-  @media (prefers-reduced-motion:reduce){.it,.toc button{transition:none}.it:hover{transform:none}}
+  @media (prefers-reduced-motion:reduce){.it,.pk li,.toc button{transition:none}.it:hover,.pk li:hover{transform:none}}
 
   /* ============ 6. CONTROLES ============ */
   .ctrl{display:flex;align-items:center;gap:14px;color:#f3e6d0;font-size:15px}
